@@ -16,12 +16,10 @@ public class DataImportService : IDataImportService
 
         csvReader.Context.RegisterClassMap<RideMap>();
 
-        await csvReader.ReadAsync(); // advance into header row
-        csvReader.ReadHeader();
+        var rides = csvReader.GetRecordsAsync<Ride>();
 
-        while (await csvReader.ReadAsync())
+        await foreach (var ride in rides)
         {
-            var ride = csvReader.GetRecord<Ride>();
             yield return ride;
         }
     }
