@@ -12,9 +12,6 @@ try
     var rideTransformer = new RideTransformer();
 
     using var appDbContext = new AppDbContext();
-    await appDbContext.Database.EnsureDeletedAsync();
-    await appDbContext.Database.EnsureCreatedAsync();
-
     var rideRepository = new RideRepository(appDbContext);
 
     var etlPipeline = new EtlPipeline(
